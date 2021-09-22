@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Asteroid/Asteroids.gd" type="Script" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/BebasNeueRegular.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/spacebackground.jpg" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Node2D
+
+var Player = preload(\"res://Player/Player.tscn\")
+var respawning = false
+
+func _physics_process(_delta):
+	if (get_child_count() == 1) and (!respawning):
+		$Respawning.start()
+		respawning = true
+
+		
+
+
+func _on_Respawning_timeout():
+	var player = Player.instance()
+	player.position = Vector2(512,300)
+	add_child(player)
+	respawning = false
+
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+var positions = [
+	Vector2(200,200)
+	,Vector2(912,200)
+	,Vector2(912,400)
+	,Vector2(200,400)
+]
+
+var Enemy = preload(\"res://Enemy/Enemy.tscn\")
+var num_enemies = 1
+var respawning = false
+
+func _ready():
+	randomize()
+
+func _physics_process(_delta):
+	if (get_child_count()-1 < num_enemies) and (!respawning):
+		$Respawn.start()
+		respawning = true
+
+func add_enemy():
+	var enemy = Enemy.instance()
+	enemy.position = positions[randi() % positions.size()] + Vector2(randf()*100, randf()*100).rotated(randf()*2*PI)
+	add_child(enemy)
+	num_enemies = 1 + floor(Global.score / 100)
+
+
+func _on_Respawn_timeout():
+	add_enemy()
+	respawning = false
+"
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 5 )
+
+[node name="Game" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 504.285, 292.791 )
+scale = Vector2( 0.814, 0.84 )
+texture = ExtResource( 6 )
+
+[node name="Players" type="Node2D" parent="."]
+script = SubResource( 3 )
+
+[node name="Player" parent="Players" instance=ExtResource( 4 )]
+acceleration = 0.077
+
+[node name="Respawning" type="Timer" parent="Players"]
+one_shot = true
+
+[node name="Asteroids" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Enemies" type="Node2D" parent="."]
+script = SubResource( 2 )
+
+[node name="Respawn" type="Timer" parent="Enemies"]
+one_shot = true
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Explosions" type="Node2D" parent="."]
+
+[node name="HUD_Container" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="HUD_Container"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD_Container/HUD"]
+margin_left = 1024.0
+margin_top = 40.0
+margin_right = 1064.0
+margin_bottom = 80.0
+color = Color( 1, 1, 1, 0.25098 )
+
+[node name="Health" type="Label" parent="HUD_Container/HUD"]
+margin_left = 10.0
+margin_right = 512.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "Health:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="HUD_Container/HUD"]
+margin_left = 512.0
+margin_right = 1014.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 1 )
+text = "Score:"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="Players/Respawning" to="Players" method="_on_Respawning_timeout"]
+[connection signal="timeout" from="Enemies/Respawn" to="Enemies" method="_on_Respawn_timeout"]

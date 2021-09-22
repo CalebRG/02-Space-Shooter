@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/686-6863379_star-wars-tie-fighter-sprite-png-download-transparent.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+var VP = Vector2.ZERO
+var direction = 0.0
+var dir_speed = 0.01
+var speed = 200
+var player = null
+
+var probability = 0.6
+
+var Bullets = null
+var Enemy_Bullet = preload(\"res://Enemy_Bullet/Enemy_Bullet.tscn\")
+
+var Explosion = preload(\"res://Explosion/Explosion_ship.tscn\")
+var Explosions = null
+
+var points = 10
+
+
+func _ready():
+	VP = get_viewport().size
+	randomize()
+
+func _physics_process(_delta):
+	direction += dir_speed
+	while direction > 2*PI:
+		direction -= 2*PI
+	
+
+func die():
+	if Global.has_method(\"update_score\"):
+		Global.update_score(points)
+	if Explosions == null:
+		Explosions = get_node_or_null(\"/root/Game/Explosions\")
+	if Explosions != null:
+		var explosion = Explosion.instance()
+		explosion.position = position
+		Explosions.add_child(explosion)
+	queue_free()
+
+
+func _on_Timer_timeout():
+	if Bullets == null:
+		Bullets = get_node(\"/root/Game/Bullets\")
+	if Bullets != null and randf() < probability:
+		var bullet = Enemy_Bullet.instance()
+		bullet.position = position + Vector2(0,-30).rotated(direction)
+		bullet.rotation = direction
+		Bullets.add_child(bullet) 
+
+"
+
+[node name="Enemy" type="KinematicBody2D"]
+scale = Vector2( 1.239, 1.239 )
+collision_layer = 2
+collision_mask = 13
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.065, 0.065 )
+texture = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 0.065, 0.065 )
+polygon = PoolVector2Array( -348, -342.7, -311, -301.8, -311, -297.1, -308, -295.1, -308, -281.8, -302, -277, -302, -255, -301, -196, -300.2, -196, -289.2, -85, -288.4, -85, -285.5, -73, -283.2, -73, -280, -69.8, -280, -57.7, -283.4, -45, -279.8, -45, -240, -37.7, -240, -35.8, -237, -32.8, -237, -28, -231.1, -28, -228.1, -33, -212, -33, -153.8, -32, -147.5, -52, -146.2, -52, -126.2, -90, -124.7, -90, -98, -113.9, -98, -116.8, -90.8, -124, -88.6, -124, -41.6, -155, -38.5, -155, -25.5, -162, -18.3, -162, 5, -165.3, 5, -163.8, 27, -161.8, 27, -160.4, 48, -152.4, 48, -151, 64.7, -138, 66.5, -138, 92, -123.1, 92, -121.9, 127, -88.9, 127, -86.5, 148, -49.5, 148, -46, 151.5, -33, 229, -33, 229, -30.7, 231, -28, 237, -28, 237, -32.6, 240.9, -39, 246.7, -39, 284.6, -45.6, 280, -58.7, 280, -71, 282.5, -71, 285, -72.2, 285, -76.6, 289, -82.6, 289, -92.1, 301, -195.2, 301, -244, 302, -280, 304.6, -280, 308, -281.4, 308, -294.4, 311.7, -303, 313.1, -303, 349.1, -345, 380, -345, 380, -342.5, 385, -332.5, 385, -322, 386.8, -322, 391, -317.8, 391, -294.9, 386, -229.8, 386, -196, 387.9, -132, 388.9, -132, 394.9, 66, 404, 89.6, 404, 103, 401.5, 103, 399, 104.3, 399, 110, 395, 113, 395, 117.2, 388, 156.4, 388, 163.2, 372, 264.3, 372, 307, 369.5, 307, 366, 309.1, 366, 312, 367.3, 322, 365.4, 322, 360.4, 335, 329, 335, 329, 333, 297, 308, 297, 305.7, 294, 301.7, 294, 293.8, 288, 290.1, 288, 268.9, 293, 175.9, 293, 130, 290.1, 62, 241, 53.7, 241, 51.4, 239.3, 42, 231.4, 42, 229.4, 48, 213, 48, 154, 46.1, 154, 48.1, 152.7, 57, 151.2, 57, 143, 72.5, 143, 109, 144.3, 118, 142.1, 118, 140.1, 121, 137.2, 121, 115, 123.2, 115, 121.4, 113.2, 120.6, 105, 127.9, 105, 129.6, 77.1, 171, 75.8, 171, 64.8, 181, 61.3, 181, 39.3, 188, 30.2, 188, -9, 191.2, -9, 189.9, -41, 187.9, -41, 186.5, -68, 179.5, -68, 177.9, -80, 166.9, -80, 164.6, -112.7, 119.5, -116.2, 123, -135.5, 123, -141, 120.2, -141, 119.1, -144, 117.1, -144, 111, -143.1, 74, -153, 55.5, -153, 48, -153.5, 46, -211.8, 46, -230, 48.3, -230, 45.5, -231.4, 42, -239, 42, -239, 51.6, -290, 61.7, -290, 66, -292.9, 171, -292.1, 171, -287.9, 291, -290.5, 291, -293, 292.3, -293, 297.3, -296.5, 309, -298.2, 309, -330.3, 335, -361, 335, -361, 332.6, -366, 324.6, -366, 310, -367.8, 310, -372, 305.8, -372, 263, -393.7, 118, -394.5, 118, -398.5, 105, -400.8, 105, -404, 101.8, -404, 89.6, -395, 67.4, -395, 54, -394, 54, -394, 23, -388, -128, -388, -161, -386.1, -229, -386.9, -229, -391.1, -319, -388.5, -319, -385, -321.1, -385, -332.5, -380, -342.5, -380, -345, -348, -345 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

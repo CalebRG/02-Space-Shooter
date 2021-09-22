@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/bullet.png" type="Texture" id=1]
+[ext_resource path="res://Bullet/Bullet.gd" type="Script" id=2]
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.233, 0.395 )
+rotation = 0.0174533
+scale = Vector2( 0.024, 0.041 )
+texture = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0.233, 0.395 )
+rotation = 0.0174533
+scale = Vector2( 0.024, 0.041 )
+polygon = PoolVector2Array( 12, -339.3, 12, -337.9, 29, -330.9, 29, -329.6, 46, -318.6, 46, -317.2, 63, -298.3, 63, -296.1, 79, -257.9, 79, -251.5, 83, -226.7, 83, -223.5, 85, -170.5, 85, -167.5, 95, 226.5, 93.8, 226.5, 89.8, 267.5, 88.5, 267.5, 81.5, 290.5, 80.2, 290.5, 69.2, 310.5, 67.9, 310.5, 43.8, 333.5, 41.6, 333.5, 32.6, 339.5, 29.4, 339.5, 12.3, 345.5, 1.89999, 345.5, -27, 343.4, -27, 341.9, -44, 335.9, -44, 334.6, -60, 324.6, -60, 323.2, -82, 298.3, -82, 296, -95, 270, -95, 265.8, -99, 252.8, -99, 247.5, -103, 219.6, -103, 217.5, -109, -69.5, -109.9, -69.5, -115, -166.4, -115, -167.5, -113, -241.5, -111.7, -241.5, -104.7, -278.5, -103.4, -278.5, -96.4, -295.5, -95.1, -295.5, -84.1, -312.5, -82.8, -312.5, -70.8, -324.5, -68.6, -324.5, -47.6, -337.5, -44.3, -337.5, -23, -341.2, -23, -342.7 )
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/BebasNeueRegular.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=2]
+[ext_resource path="res://Menu/wallpaper2you_517809.jpg" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -15,29 +16,36 @@ font_data = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -0.943848
+margin_top = 0.943878
 margin_right = -0.943848
+margin_bottom = 0.943848
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 514.167, 303.487 )
+scale = Vector2( 0.534704, 0.534704 )
+texture = ExtResource( 3 )
+
 [node name="Label" type="Label" parent="."]
-margin_left = 386.544
-margin_top = 83.9435
-margin_right = 628.544
-margin_bottom = 187.943
+margin_left = 127.675
+margin_top = 73.5226
+margin_right = 454.675
+margin_bottom = 177.522
 custom_fonts/font = SubResource( 1 )
-text = "deez nuts and balls"
+text = "STAR WARS GAME!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Play" type="Button" parent="."]
-margin_left = 412.0
-margin_top = 300.0
-margin_right = 612.0
-margin_bottom = 360.0
+margin_left = 807.615
+margin_top = 437.331
+margin_right = 1007.62
+margin_bottom = 507.331
 custom_fonts/font = SubResource( 2 )
 text = "Play!"
 __meta__ = {
@@ -45,10 +53,10 @@ __meta__ = {
 }
 
 [node name="Quit" type="Button" parent="."]
-margin_left = 412.0
-margin_top = 380.0
-margin_right = 612.0
-margin_bottom = 450.0
+margin_left = 805.095
+margin_top = 519.851
+margin_right = 1005.1
+margin_bottom = 589.851
 custom_fonts/font = SubResource( 2 )
 text = "Quit"
 

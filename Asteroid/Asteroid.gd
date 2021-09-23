@@ -3,7 +3,7 @@ extends RigidBody2D
 var screensize = Vector2.ZERO
 
 var Asteroid_small = preload("res://Asteroid/Asteroid_small.tscn")
-var Asteroids = null
+var Asteroids = null 
 var Explosions = null
 var Explosion = preload("res://Explosion/Explosion.tscn")
 

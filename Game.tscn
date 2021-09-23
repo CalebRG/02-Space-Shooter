@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://Music/battlemusic.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Asteroid/Asteroids.gd" type="Script" id=2]
 [ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
@@ -28,15 +29,20 @@ func _on_Respawning_timeout():
 
 "
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 20
 font_data = ExtResource( 5 )
 
 [node name="Game" type="Node2D"]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -4.039
+autoplay = true
+
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 504.285, 292.791 )
-scale = Vector2( 0.814, 0.84 )
+position = Vector2( 504.285, 304.016 )
+scale = Vector2( 0.814, 0.87118 )
 texture = ExtResource( 6 )
 
 [node name="Players" type="Node2D" parent="."]
@@ -51,7 +57,7 @@ one_shot = true
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 280.758, 254.271 )
 
-[node name="Asteroids" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
 [node name="Bullets" type="Node2D" parent="."]
@@ -67,18 +73,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="HUD_Container/HUD"]
-margin_left = 1024.0
-margin_top = 40.0
-margin_right = 1064.0
-margin_bottom = 80.0
-color = Color( 1, 1, 1, 0.25098 )
-
 [node name="Health" type="Label" parent="HUD_Container/HUD"]
 margin_left = 10.0
 margin_right = 512.0
 margin_bottom = 40.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Health:"
 valign = 1
 __meta__ = {
@@ -89,7 +88,7 @@ __meta__ = {
 margin_left = 512.0
 margin_right = 1014.0
 margin_bottom = 40.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Score:"
 align = 2
 valign = 1

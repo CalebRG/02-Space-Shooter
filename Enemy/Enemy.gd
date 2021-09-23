@@ -5,7 +5,7 @@ var direction = 0.0
 var dir_speed = 0.01
 var player = null
 var move = Vector2.ZERO
-var speed = 1
+var speed = 5
 
 var probability = 0.6
 
@@ -33,6 +33,7 @@ func _physics_process(_delta):
 	move = move.normalized()
 	move = move_and_collide(move)
 
+	
 func die():
 	if Global.has_method("update_score"):
 		Global.update_score(points)
@@ -63,5 +64,5 @@ func _on_Area2D_body_entered(body):
 		move = Vector2.ZERO
 
 
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(_body):
 	player = null

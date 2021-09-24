@@ -1,7 +1,5 @@
 extends Node2D
 
-var player = null
-
 var positions = [
 	Vector2(200,200)
 	,Vector2(912,200)
@@ -10,7 +8,7 @@ var positions = [
 ]
 
 var Enemy = preload("res://Enemy/Enemy.tscn")
-var num_enemies = 1
+var num_enemies = 3
 var respawning = false
 
 func _ready():

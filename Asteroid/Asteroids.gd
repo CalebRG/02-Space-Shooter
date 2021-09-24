@@ -8,7 +8,7 @@ var positions = [
 ]
 var Asteroid = preload("res://Asteroid/Asteroid.tscn")
 var count = 0
-var target = 1
+var target = 3
 var respawn = 1500
 
 func _ready():

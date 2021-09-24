@@ -3,9 +3,10 @@ extends KinematicBody2D
 var VP = Vector2.ZERO
 var direction = 0.0
 var dir_speed = 0.01
-var player = null
+onready var player = get_node("/root/Game/Players/Player")
+onready var players = get_node("/root/Game/Players")
 var move = Vector2.ZERO
-var speed = 5
+var speed = 1
 
 var probability = 0.6
 
@@ -19,21 +20,15 @@ var points = 10
 
 
 func _ready():
-	VP = get_viewport().size
 	randomize()
 
 func _physics_process(_delta):
-	move = Vector2.ZERO
-	
 	if player != null:
-		move = position.direction_to(player.position) * speed
-	else:
-		move = Vector2.ZERO
+		var flyto = player.global_position - global_position
+		flyto = flyto.normalized()
+		global_rotation = atan2(flyto.y, flyto.x) + 90
+		move_and_collide(flyto * speed)
 		
-	move = move.normalized()
-	move = move_and_collide(move)
-
-	
 func die():
 	if Global.has_method("update_score"):
 		Global.update_score(points)
@@ -51,18 +46,9 @@ func _on_Timer_timeout():
 		Bullets = get_node("/root/Game/Bullets")
 	if Bullets != null and randf() < probability:
 		var bullet = Enemy_Bullet.instance()
-		bullet.position = position + Vector2(0,-30).rotated(direction)
-		bullet.rotation = direction
+		bullet.position = position + Vector2(0,-10).rotated(direction)
+		bullet.rotation = global_rotation
 		Bullets.add_child(bullet) 
 
 
 
-func _on_Area2D_body_entered(body):
-	if body != self:
-		player = body
-	else:
-		move = Vector2.ZERO
-
-
-func _on_Area2D_body_exited(_body):
-	player = null

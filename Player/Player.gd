@@ -34,7 +34,7 @@ func _physics_process(_delta):
 	elif collision != null:
 		die()
 
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("RightShoot"):
 		if Bullets == null:
 			Bullets = get_node_or_null("/root/Game/Bullets")
 		if Bullets != null:
@@ -42,6 +42,10 @@ func _physics_process(_delta):
 			bullet.position = position + Vector2(30,-20).rotated(rotation)
 			bullet.rotation = rotation
 			Bullets.add_child(bullet)
+			
+	if Input.is_action_just_pressed("LeftShoot"):
+		if Bullets == null:
+			Bullets = get_node_or_null("/root/Game/Bullets")
 		if Bullets != null:
 			var bullet = Bullet.instance()
 			bullet.position = position + Vector2(-30,-20).rotated(rotation)

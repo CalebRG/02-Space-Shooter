@@ -14,12 +14,12 @@ func update_score(s):
 	Score = get_node_or_null("/root/Game/HUD_Container/HUD/Score")
 	if Score != null:
 		score += s
-		Score.text = "Score: " + str(score)
+		Score.text = str(score)
 
 func update_health(h):
 	Health = get_node_or_null("/root/Game/HUD_Container/HUD/Health")
 	health += h
-	Health.text = "Health: " + str(health)
+	Health.text = str(health)
 	if health <= 0:
 		var _scene = get_tree().change_scene("res://Menu/Die.tscn")
 

@@ -1,15 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Music/Star Wars Theme (2019 Remaster) [8 Bit Tribute to John Williams & Star Wars] - 8 Bit Universe.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Music/swtheme.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=2]
 [ext_resource path="res://Menu/wallpaper2you_517809.jpg" type="Texture" id=3]
 [ext_resource path="res://Assets/Starjedi.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Menu/menu.png" type="Texture" id=5]
+[ext_resource path="res://Menu/controls.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
-size = 60
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=2]
 size = 50
 font_data = ExtResource( 4 )
 
@@ -26,39 +24,32 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 510.599, 296.352 )
+position = Vector2( 509.477, 296.352 )
 scale = Vector2( 0.534704, 0.534704 )
 texture = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = 6.97377
-margin_top = 500.826
-margin_right = 590.974
-margin_bottom = 604.825
-custom_fonts/font = SubResource( 1 )
-text = "x-wing assault"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( 833.307, 530.385 )
+scale = Vector2( 0.396641, 0.396641 )
+texture = ExtResource( 6 )
 
 [node name="Play" type="Button" parent="."]
-margin_left = 780.5
-margin_top = 367.501
-margin_right = 1000.5
-margin_bottom = 476.501
-custom_fonts/font = SubResource( 2 )
+margin_left = 20.5934
+margin_top = 479.747
+margin_right = 240.593
+margin_bottom = 588.747
+custom_fonts/font = SubResource( 1 )
 text = "Play!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Quit" type="Button" parent="."]
-margin_left = 781.955
+margin_left = 263.378
 margin_top = 486.727
-margin_right = 997.955
+margin_right = 479.378
 margin_bottom = 583.727
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "quit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,8 +57,13 @@ __meta__ = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
-volume_db = -8.078
+volume_db = -14.136
 autoplay = true
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 285.768, 143.891 )
+scale = Vector2( 0.658566, 0.658566 )
+texture = ExtResource( 5 )
 
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

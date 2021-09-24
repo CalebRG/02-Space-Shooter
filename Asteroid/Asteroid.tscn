@@ -10,7 +10,7 @@ bounce = 0.75
 [node name="Asteroid" type="RigidBody2D"]
 scale = Vector2( 2, 2 )
 collision_layer = 4
-collision_mask = 27
+collision_mask = 25
 mass = 50.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 0.0

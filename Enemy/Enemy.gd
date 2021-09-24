@@ -6,9 +6,9 @@ var dir_speed = 0.01
 onready var player = get_node("/root/Game/Players/Player")
 onready var players = get_node("/root/Game/Players")
 var move = Vector2.ZERO
-var speed = 1
+var speed = 60
 
-var probability = 0.6
+var probability = 0.70
 
 var Bullets = null
 var Enemy_Bullet = preload("res://Enemy_Bullet/Enemy_Bullet.tscn")
@@ -22,12 +22,14 @@ var points = 10
 func _ready():
 	randomize()
 
-func _physics_process(_delta):
-	if player != null:
+func _physics_process(delta):
+	if is_instance_valid(player):
 		var flyto = player.global_position - global_position
 		flyto = flyto.normalized()
 		global_rotation = atan2(flyto.y, flyto.x) + 90
-		move_and_collide(flyto * speed)
+		move_and_collide(flyto * speed * delta)
+	else:
+		queue_free()
 		
 func die():
 	if Global.has_method("update_score"):

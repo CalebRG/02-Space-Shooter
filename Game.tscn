@@ -2,12 +2,12 @@
 
 [ext_resource path="res://Music/battlemusic.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Asteroid/Asteroids.gd" type="Script" id=2]
-[ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/BebasNeueRegular.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://Assets/spacebackground.jpg" type="Texture" id=6]
 [ext_resource path="res://Menu/health.png" type="Texture" id=7]
 [ext_resource path="res://Menu/score.png" type="Texture" id=8]
+[ext_resource path="res://Enemy/Enemies.gd" type="Script" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -43,7 +43,7 @@ volume_db = -4.039
 autoplay = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 504.285, 304.016 )
+position = Vector2( 505.344, 300.838 )
 scale = Vector2( 0.814, 0.87118 )
 texture = ExtResource( 6 )
 
@@ -58,6 +58,12 @@ one_shot = true
 
 [node name="Astreoids" type="Node2D" parent="."]
 script = ExtResource( 2 )
+
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="Respawn" type="Timer" parent="Enemies"]
+one_shot = true
 
 [node name="Bullets" type="Node2D" parent="."]
 
@@ -105,9 +111,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Enemy" type="Node2D" parent="."]
-
-[node name="Enemy" parent="Enemy" instance=ExtResource( 3 )]
-position = Vector2( 286, 155 )
-
 [connection signal="timeout" from="Players/Respawning" to="Players" method="_on_Respawning_timeout"]
+[connection signal="timeout" from="Enemies/Respawn" to="Enemies" method="_on_Respawn_timeout"]

@@ -8,7 +8,7 @@ var positions = [
 ]
 
 var Enemy = preload("res://Enemy/Enemy.tscn")
-var num_enemies = 3
+var num_enemies = 1
 var respawning = false
 
 func _ready():

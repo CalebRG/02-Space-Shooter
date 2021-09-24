@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/BebasNeueRegular.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menu/Die.gd" type="Script" id=2]
+[ext_resource path="res://Menu/x-wing-explode-1.jpg" type="Texture" id=3]
+[ext_resource path="res://Music/death.ogg" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -14,16 +16,30 @@ font_data = ExtResource( 1 )
 [node name="Die" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 1.88776
+margin_bottom = 1.88776
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -8.085
+autoplay = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 570.633, 296.41 )
+scale = Vector2( 1.0235, 1.19831 )
+texture = ExtResource( 3 )
+
 [node name="Label" type="Label" parent="."]
-margin_right = 1024.0
-margin_bottom = 300.0
+margin_left = -257.542
+margin_top = 414.456
+margin_right = 766.458
+margin_bottom = 714.456
 custom_fonts/font = SubResource( 1 )
-text = "YOU FAILED!"
+text = "YOU FAILED ThE REBELLION!"
 align = 1
 valign = 1
 __meta__ = {
@@ -31,10 +47,10 @@ __meta__ = {
 }
 
 [node name="Play" type="Button" parent="."]
-margin_left = 412.0
-margin_top = 300.0
-margin_right = 612.0
-margin_bottom = 360.0
+margin_left = 576.818
+margin_top = 531.564
+margin_right = 776.818
+margin_bottom = 591.564
 custom_fonts/font = SubResource( 2 )
 text = "Play Again?"
 __meta__ = {
@@ -42,10 +58,10 @@ __meta__ = {
 }
 
 [node name="Quit" type="Button" parent="."]
-margin_left = 412.0
-margin_top = 378.878
-margin_right = 612.0
-margin_bottom = 438.878
+margin_left = 798.82
+margin_top = 530.516
+margin_right = 998.82
+margin_bottom = 590.516
 custom_fonts/font = SubResource( 2 )
 text = "GIVE UP"
 __meta__ = {

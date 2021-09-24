@@ -10,7 +10,7 @@ SFX by Siimon Sounds
 
 Sprites from Top PNG
 
-Enemy AI from Miziziziz on Youtube
+Enemy Physics AI from Miziziziz on Youtube
 
 Movie frames from Star Wars: A New Hope
 

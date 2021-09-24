@@ -5,10 +5,15 @@ Game for Space Shooter Project
 N/A
 ## References
 Music by 8 Bit Universe on Youtube
+
 SFX by Siimon Sounds
+
 Sprites from Top PNG
+
 Enemy AI from Miziziziz on Youtube
+
 Movie frames from Star Wars: A New Hope
+
 All rights goes to Lucasfilms/Disney
 ## Future Development
 N/A
